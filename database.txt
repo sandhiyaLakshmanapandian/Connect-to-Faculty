@@ -1,0 +1,19 @@
+CREATE TABLE faculty (
+    fid VARCHAR(100) NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    status ENUM('Available', 'Busy', 'On Leave') DEFAULT 'Available',
+    message TEXT,
+    photo VARCHAR(255),
+    reset_token VARCHAR(100),
+    token_expiry DATETIME
+);
+CREATE TABLE faculty_schedule (
+    schedule_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    faculty_id VARCHAR(100) NOT NULL,
+    day ENUM('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
+    hour INT(11) NOT NULL,
+    room VARCHAR(50),
+    FOREIGN KEY (faculty_id) REFERENCES faculty(fid) ON DELETE CASCADE
+);
